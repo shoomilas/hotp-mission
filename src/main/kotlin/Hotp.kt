@@ -5,6 +5,6 @@ class Hotp(
     secretKey: Data
 ) {
     companion object {
-        fun generateOTP():Int { return 3 } // TODO: Not implemented yet
+        fun generateOTP():Int { return 3 } // TODO: generateOTP function
     }
 }

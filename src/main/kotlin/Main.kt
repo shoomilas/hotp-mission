@@ -1,6 +1,7 @@
 fun main(args: Array<String>) {
     println("ab".toAscii())
     "ab".toAsciiArray().forEach { println(it) }
+    println("S".toAsciiArray().toUByteArray()[0].toInt().toChar())
 
     val cryptoLib = CryptoLib()
     val secretKey = Data("HID Global secretKey")
