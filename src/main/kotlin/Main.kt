@@ -3,6 +3,10 @@ fun main(args: Array<String>) {
     "ab".toAsciiArray().forEach { println(it) }
     println("S".toAsciiArray().toUByteArray()[0].toInt().toChar())
 
+    decryptMessageWithHotpDataAsKey()
+}
+
+fun decryptMessageWithHotpDataAsKey() {
     val cryptoLib = CryptoLib()
     val secretKey = Data("HID Global secretKey")
     val counterStartValue: ULong = 0u
