@@ -1,4 +1,6 @@
 fun main(args: Array<String>) {
+    println("ab".toAscii())
+    "ab".toAsciiArray().forEach { println(it) }
     val cryptoLib = CryptoLib()
     val secretKey = Data("HID Global secretKey")
     val counterStartValue: ULong = 0u
@@ -19,7 +21,17 @@ fun main(args: Array<String>) {
     println(decryptedMessage)
 }
 
-data class Data(val hexString: String)
+data class Data(val hexString: String) {
+    fun toByteArray(): ByteArray {
+        check(hexString.length % 2 == 0 ) { "Must have an even length" }
+        return hexString
+            .chunked(2)
+            .map { it.toInt(16).toByte() }
+            .toByteArray()
+    }
+}
+fun String.toAscii() = this.map { it.code }.joinToString()
+fun String.toAsciiArray() = this.map { it.code.toUByte() }.toUByteArray()
 
 interface CryptoLibrary {
     fun hmac(key: Data, data: ULong): Data
@@ -31,23 +43,17 @@ class CryptoLib : CryptoLibrary {
     }
 
     override fun decrypt(secretKey: String, message: String): String {
-        TODO("Not yet implemented")
-        val msgData = Data(message)
-        // val msg = msgData.bytes // TODO
-        val key = secretKey.asciiValues
-        val decoded = xor(msg, key)
-        val stringMsg = ""
-        decoded.foreach { stringMsg.plus( /* ... */  ) }
-        return stringMsg
+            TODO("Not yet implemented")
+//        val msg = Data(message).toByteArray()
+//        val key = secretKey.asciiValues
+//        val decoded = xor(msg, key)
+//        val stringMsg = ""
+//        decoded.foreach { stringMsg.plus( /* ... */  ) }
+//        return stringMsg
     }
 
-    interface _xorParam {
-        val Element: UByte
-        val Index: Int
-    }
-
-    fun <T,V> xor(_left: T, _right: V): Array<UByte> where T: _xorParam, V: _xorParam  {
-        let length = [3,4][1]
+    fun <T,V> xor(_left: T, _right: V): UByteArray where T: Iterable<UByte>, V: Iterable<UByte>  {
+        return UByteArray(1) { 0.toUByte() }
     }
 }
 
