@@ -1,12 +1,4 @@
 fun main(args: Array<String>) {
-    val cl = CryptoLib()
-    val h = Hotp(cl, 6, 0, Data("12345678901234567890"))
-    println(h.generateOTP())
-    println(h.generateOTP())
-    println(h.generateOTP())
-    println(h.generateOTP())
-    println(h.generateOTP())
-    println("=========")
     decryptMessageWithHotpDataAsKey()
 }
 
@@ -26,7 +18,10 @@ fun decryptMessageWithHotpDataAsKey() {
 
     val generatedSecretKey = HOTPs.fold("") { acc, i -> (acc + i).toString() }
     val encryptedMessage = "7f5f44465b5c5c16505b5a4755534c5c5718"
-    val decryptedMessage = cryptoLib.decrypt(generatedSecretKey, encryptedMessage)
+    val decryptedMessage = cryptoLib.decrypt(
+        generatedSecretKey,
+        encryptedMessage
+    )
 
     println("generatedSecretKey: ${generatedSecretKey}")
     println("encryptedMessage: ${encryptedMessage}")
@@ -38,7 +33,7 @@ fun printCollectionAsHexString(someCollection: ByteArray) {
 }
 
 fun printCollection(someCollection: ByteArray) {
-    someCollection.forEach { it -> print("${it.hashCode()} ") }
+    someCollection.forEach { it -> print("${it} ") }
     println()
 }
 
