@@ -16,7 +16,8 @@ fun decryptMessageWithHotpDataAsKey() {
     var HOTPs = mutableListOf<Int>()
     (0 until 4).forEach { HOTPs.add(hotp.generateOTP()) }
 
-    val generatedSecretKey = HOTPs.fold("") { acc, i -> (acc + i).toString() }
+    // val generatedSecretKey = HOTPs.fold("") { acc, i -> (acc + i).toString() }
+    val generatedSecretKey = HOTPs.joinToString("")
     val encryptedMessage = "7f5f44465b5c5c16505b5a4755534c5c5718"
     val decryptedMessage = cryptoLib.decrypt(
         generatedSecretKey,
@@ -26,6 +27,10 @@ fun decryptMessageWithHotpDataAsKey() {
     println("generatedSecretKey: ${generatedSecretKey}")
     println("encryptedMessage: ${encryptedMessage}")
     println("decryptedMessage: ${decryptedMessage}")
+
+    println("===============")
+    printCollection(decryptedMessage.toByteArray())
+    printCollectionAsHexString(decryptedMessage.toByteArray())
 }
 
 fun printCollectionAsHexString(someCollection: ByteArray) {

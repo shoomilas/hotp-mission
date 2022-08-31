@@ -8,11 +8,13 @@ class CryptoLib : CryptoLibrary {
         val msg = message.toByteArray()
         val key = secretKey.toByteArray()
         val decoded = xor(msg, key)
-        var stringMsg = ""
-        decoded.forEach {
-            stringMsg = stringMsg.plus(it.toUByte().toInt().toChar()) // Swift code had `Character(UnicodeScalar(ascii))` casting
-        }
-        return stringMsg
+        return String(decoded)
+//        var stringMsg = ""
+//        decoded.forEach {
+//            stringMsg = stringMsg.plus(it.toUByte().toInt().toChar())
+//        // Swift code had `Character(UnicodeScalar(ascii))` casting
+//        }
+//        return stringMsg
     }
 
     override fun hmac(key: Data, data: Data): Data {
@@ -24,11 +26,11 @@ class CryptoLib : CryptoLibrary {
         return Data(hmac.doFinal(data.bytes))
     }
 
-    private fun xor(_left: ByteArray, _right: ByteArray): ByteArray {
-        val length = min(_left.count(), _right.count())
+    private fun xor(_left: ByteArray, right: ByteArray): ByteArray {
+        val length = min(_left.size, right.size)
         val buf = ByteArray(length) { 0 }
         (0 until length).forEach { i ->
-            buf[i] = _right[i] xor _left[i]
+            buf[i] = right[i] xor _left[i]
         }
         return buf
     }

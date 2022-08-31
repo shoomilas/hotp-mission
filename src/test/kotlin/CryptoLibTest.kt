@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource
 
 internal class CryptoLibTest {
     val secret = "12345678901234567890"
-    val hexed = "3132333435363738393031323334353637383930"
+    val hexStringData = "3132333435363738393031323334353637383930"
 
     @ParameterizedTest
     @CsvSource(
